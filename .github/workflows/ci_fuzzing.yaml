@@ -36,7 +36,7 @@ jobs:
           sudo apt install \
               build-essential cmake ninja-build \
               libssl-dev libxkbcommon-x11-dev libxcb-cursor-dev zlib1g-dev \
-              clang llvm cmake libclang-dev curl
+              clang llvm cmake libcap-dev libclang-dev curl
 
       - name: Install boost
         env:
