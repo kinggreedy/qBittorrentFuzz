@@ -27,6 +27,11 @@ feature_option(STACKTRACE "Enable stacktrace support" ON)
 feature_option(TESTING "Build internal testing suite" OFF)
 feature_option(VERBOSE_CONFIGURE "Show information about PACKAGES_FOUND and PACKAGES_NOT_FOUND in the configure output (only useful for debugging the CMake build scripts)" OFF)
 
+if(DEFINED ENV{CUSTOM_DISABLE_GUI})
+    message(STATUS "CUSTOM_DISABLE_GUI environment variable detected, disabling GUI.")
+    set(GUI OFF)
+endif()
+
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux" OR CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
     feature_option_dependent(DBUS
         "Enable support for notifications and power-management features via D-Bus"
@@ -65,3 +70,17 @@ add_subdirectory(dist)
 if (TESTING)
     add_subdirectory(test)
 endif()
+
+# cifuzz
+find_package(cifuzz NO_SYSTEM_ENVIRONMENT_PATH)
+enable_fuzz_testing()
+# file(GLOB_RECURSE CIFUZZ_SRC_FILES "${CMAKE_SOURCE_DIR}/src/base/*.cpp")
+# add_fuzz_test(testfuzz test/testfuzz.cpp ${CIFUZZ_SRC_FILES})
+# target_include_directories(testfuzz PRIVATE
+#     ${CMAKE_SOURCE_DIR}/src/base
+#     ${CMAKE_SOURCE_DIR}/src
+# )
+# target_link_libraries(testfuzz PRIVATE qbt_base qbt_core qbt_network)
+add_fuzz_test(testfuzz test/testfuzz.cpp)
+target_include_directories(testfuzz PRIVATE ${CMAKE_SOURCE_DIR}/src)
+target_link_libraries(testfuzz PRIVATE qbt_base)
