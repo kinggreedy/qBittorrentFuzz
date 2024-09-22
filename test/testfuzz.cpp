@@ -439,5 +439,5 @@ FUZZ_TEST(const uint8_t *data, size_t size) {
     // } else {
     //     manager.handleAddTorrentFailed(source, parseResult.error());
     // }
-    BitTorrent::TorrentDescriptor::parse(source)
+    BitTorrent::TorrentDescriptor::parse(source);
 }
