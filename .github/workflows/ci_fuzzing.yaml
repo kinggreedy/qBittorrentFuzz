@@ -101,4 +101,16 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-logs
-          path: .cifuzz-build/logs/*
+          path: .cifuzz-build/logs
+
+      - name: Upload Findings
+        uses: actions/upload-artifact@v4
+        with:
+          name: cifuzz-findings
+          path: .cifuzz-findings
+
+      - name: Upload Finding Inputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: testfuzz_inputs
+          path: testfuzz_inputs
