@@ -89,7 +89,7 @@ jobs:
 
       - name: Run Fuzzer
         run: |
-          cifuzz run test1 > fuzzing.log 2>&1 || true
+          CUSTOM_DISABLE_GUI=1 cifuzz run test1 > fuzzing.log 2>&1 || true
           cat fuzzing.log
 
       - name: Upload Fuzzing Logs
