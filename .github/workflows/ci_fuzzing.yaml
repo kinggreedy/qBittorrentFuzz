@@ -74,6 +74,7 @@ jobs:
               -B build \
               -G "Ninja" \
               -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+              -DBOOST_ROOT="${{ env.boost_path }}" \
               -Ddeprecated-functions=OFF
           cmake --build build
           sudo cmake --install build
@@ -87,7 +88,7 @@ jobs:
 
       - name: Run Fuzzer
         run: |
-          CUSTOM_DISABLE_GUI=1 cifuzz run testfuzz > fuzzing.log 2>&1 || true
+          BOOST_ROOT=${{ env.boost_path }} CUSTOM_DISABLE_GUI=1 cifuzz run testfuzz > fuzzing.log 2>&1 || true
           cat fuzzing.log
 
       - name: Upload Fuzzing Logs
