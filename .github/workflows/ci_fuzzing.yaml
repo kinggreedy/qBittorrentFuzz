@@ -23,7 +23,6 @@ jobs:
 
     env:
       boost_path: "${{ github.workspace }}/../boost"
-      coverity_path: "${{ github.workspace }}/../coverity"
       libtorrent_path: "${{ github.workspace }}/../libtorrent"
 
     steps:
